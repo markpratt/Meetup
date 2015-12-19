@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="jefferyvicente.meetup" >
+
+    <permission
+        android:name="jefferyvicente.meetup.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+    <uses-permision android:name="jefferyvicente.meetup.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <!--
+      IMPORTANT: Change "com.parse.starter.permission.C2D_MESSAGE" in the lines below
+      to match your app's package name + ".permission.C2D_MESSAGE".
+    -->
+    <permission android:protectionLevel="signature"
+        android:name="jefferyvicente.meetup.permission.C2D_MESSAGE" />
+    <uses-permission android:name="jefferyvicente.meetup.permission.C2D_MESSAGE" />
+
+    <!--
+     The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+     Google Maps Android API v2, but you must specify either coarse or fine
+     location permissions for the 'MyLocation' functionality.
+     -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <application
+        android:name=".login"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <!--
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyC_Vs9ukpTVqLQOb0P-EUKp6ayHrrFrJGM"/>
+
+        <activity
+            android:name=".MapActivity"
+            android:label="Map" >
+        </activity>
+
+        <activity
+            android:name=".SampleActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.parse.ui.ParseLoginActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop" >
+            <meta-data
+                android:name="com.parse.ui.ParseLoginActivity.PARSE_LOGIN_ENABLED"
+                android:value="true" />
+            <meta-data
+                android:name="com.parse.ui.ParseLoginActivity.PARSE_LOGIN_EMAIL_AS_USERNAME"
+                android:value="true" />
+        </activity>
+
+        <meta-data
+            android:name="com.parse.APPLICATION_ID"
+            android:value="kwxU6s1xRXeGaPopIgpeTeuw3ZVQVHMCz41T8Bf5" />
+        <meta-data
+            android:name="com.parse.CLIENT_KEY"
+            android:value="Vvml8Z3TbSzEaZiL0h6cMxo0Gu4rOONhG1p0IgMc" />
+
+        <activity
+            android:name=".eventView"
+            android:label="@string/title_activity_event_view" >
+        </activity>
+        <activity
+            android:name=".newEventInfo"
+            android:label="@string/title_activity_new_event_info" >
+        </activity>
+        <activity
+            android:name=".friendManager"
+            android:label="@string/title_activity_friend_manager" >
+        </activity>
+        <activity
+            android:name=".EventDetails"
+            android:label="@string/title_activity_event_details" >
+        </activity>
+        <activity
+            android:name=".EventsInvitedTo"
+            android:label="@string/title_activity_event_invited"
+            android:parentActivityName=".eventView">
+            <!-- The meta-data element is needed for versions lower than 4.1 -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".eventView" />
+        </activity>
+        <activity
+            android:name=".EventsAttending"
+            android:label="@string/title_activity_event_attending" >
+        </activity>
+
+        <service android:name="com.parse.PushService" />
+        <receiver android:name="jefferyvicente.meetup.MyPushBroadcastReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.parse.push.intent.RECEIVE" />
+                <action android:name="com.parse.push.intent.DELETE" />
+                <action android:name="com.parse.push.intent.OPEN" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.parse.GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <!--
+                  IMPORTANT: Change "com.parse.starter" to match your app's package name.
+                -->
+                <category android:name="jefferyvicente.meetup" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>

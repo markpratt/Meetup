@@ -1,0 +1,134 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    tools:context="jefferyvicente.meetup.EventDetails"
+    android:background="#f1e9dc">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Event Name:"
+        android:id="@+id/eventNameLabel"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:ems="10"
+        android:id="@+id/name_TextView"
+        android:layout_below="@+id/eventNameLabel" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Event Details:"
+        android:id="@+id/eventDetailsLabel"
+        android:layout_below="@+id/name_TextView"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:id="@+id/details_TextView"
+        android:layout_below="@+id/eventDetailsLabel"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Event Location:"
+        android:id="@+id/eventLocationLabel"
+        android:layout_below="@+id/details_TextView"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="35dp"
+        android:ems="10"
+        android:id="@+id/location_TextView"
+        android:layout_below="@+id/eventLocationLabel"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Event Date:"
+        android:id="@+id/eventDateLabel"
+        android:layout_below="@+id/location_TextView"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:ems="10"
+        android:id="@+id/date_TextView"
+        android:layout_below="@+id/eventDateLabel" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Event Time:"
+        android:id="@+id/eventTimeLabel"
+        android:layout_below="@+id/date_TextView"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:ems="10"
+        android:id="@+id/time_TextView"
+        android:layout_below="@+id/eventTimeLabel" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Current Attendees:"
+        android:id="@+id/attendeeLabel"
+        android:layout_below="@+id/time_TextView" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="180dp"
+        android:id="@+id/attendee_listView"
+        android:layout_below="@+id/attendeeLabel"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Accept Invite"
+        android:id="@+id/accept_invite_button"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:visibility="gone"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Decline Invite"
+        android:id="@+id/decline_invite_button"
+        android:layout_alignTop="@+id/accept_invite_button"
+        android:layout_alignParentEnd="true"
+        android:visibility="gone"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Map"
+        android:id="@+id/view_map_button"
+        android:layout_above="@+id/accept_invite_button"
+        android:layout_alignTop="@+id/accept_invite_button"
+        android:layout_alignParentEnd="true"
+        android:visibility="gone"/>
+
+
+</RelativeLayout>
