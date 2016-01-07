@@ -192,8 +192,6 @@ public class newEventInfo extends Activity {
                     Toast.makeText(getApplicationContext(), "You must choose a location", Toast.LENGTH_LONG).show();
                 if(name.equals(""))
                     Toast.makeText(getApplicationContext(), "You must enter a name", Toast.LENGTH_LONG).show();
-                if(location.equals(""))
-                    Toast.makeText(getApplicationContext(), "You must choose a location", Toast.LENGTH_LONG).show();
                 if(date.equals(""))
                     Toast.makeText(getApplicationContext(), "You must choose a date", Toast.LENGTH_LONG).show();
                 if(time.equals(""))

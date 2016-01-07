@@ -28,7 +28,8 @@ import java.util.List;
  * Shows the user profile. This simple activity can function regardless of whether the user
  * is currently logged in.
  */
-public class SampleActivity extends Activity {
+public class SampleActivity extends Activity
+{
     private static final int LOGIN_REQUEST = 0;
 
     private TextView titleTextView;
@@ -43,7 +44,6 @@ public class SampleActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //toEventView();
         getActionBar().hide();
         setContentView(R.layout.activity_login);
         titleTextView = (TextView) findViewById(R.id.profile_title);
@@ -56,12 +56,14 @@ public class SampleActivity extends Activity {
         loginOrLogoutButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (currentUser != null) {
+                if (currentUser != null)
+                {
                     // User clicked to log out.
                     ParseUser.logOut();
                     currentUser = null;
                     showProfileLoggedOut();
-                } else {
+                } else
+                {
 
                     // User clicked to log in.
                     ParseLoginBuilder loginBuilder = new ParseLoginBuilder(
@@ -138,8 +140,7 @@ public class SampleActivity extends Activity {
      * Shows the profile of the given user.
      */
     private void showProfileLoggedIn() {
-        // Necessary to have 2 references to continue button? I (Mark) consolidated into continue_button.
-        //View hideButton = findViewById(R.id.continue_button);
+
         continue_button.setVisibility(View.VISIBLE);
 
         titleTextView.setText("You are logged in as ");
@@ -154,7 +155,6 @@ public class SampleActivity extends Activity {
     public void toEventView(){
 
         final Context context = this;
-        //button = (Button)findViewById(R.id.continue_button);
         continue_button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View arg0){

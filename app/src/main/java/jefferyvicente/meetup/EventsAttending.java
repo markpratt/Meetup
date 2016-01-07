@@ -49,13 +49,13 @@ public class EventsAttending extends Activity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                // Get selected eventName from EventsInvitedToCustomAdapter
-                ArrayList<String> eventNames = adapter2.getEventNames();
-                String selectedName = eventNames.get(position);
+                // Get selected events from EventsAttendingCustomAdapter
+                ArrayList<String> events = adapter2.getEvents();
+                String selectedEventId = events.get(position);
 
                 // Pass event data to EventDetails
                 Intent myIntent = new Intent(EventsAttending.this, EventDetails.class);
-                myIntent.putExtra("selectedName", selectedName);
+                myIntent.putExtra("eventId", selectedEventId);
                 EventsAttending.this.startActivity(myIntent);
 
             }

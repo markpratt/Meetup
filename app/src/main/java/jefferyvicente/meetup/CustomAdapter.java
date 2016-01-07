@@ -20,21 +20,22 @@ import android.widget.Toast;
 import android.widget.Toast;
 import android.view.View;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 
 public class CustomAdapter extends ParseQueryAdapter<ParseObject>
 {
-    private ArrayList<String> eventNames = new ArrayList<String>();
+    private ArrayList<String> events = new ArrayList<String>();
 
-    public CustomAdapter(Context context) {
-        // Use the QueryFactory to construct a PQA that will only show events created by current User
+    public CustomAdapter(Context context)
+    {
         super(context, new ParseQueryAdapter.QueryFactory<ParseObject>() {
             public ParseQuery create() {
 
+                // Get all the events created by the current user
                 ParseQuery query = new ParseQuery("event");
                 query.whereEqualTo("eventCreator", ParseUser.getCurrentUser());
-                //query.orderByAscending("createdAt");
                 query.orderByDescending("createdAt");
                 return query;
             }
@@ -50,23 +51,24 @@ public class CustomAdapter extends ParseQueryAdapter<ParseObject>
 
         super.getItemView(object, v, parent);
 
-        eventNames.add(object.getString("eventName"));
+        events.add(object.getObjectId());
 
-        //Add the title view to
+        // Display the event name
         TextView titleTextView = (TextView) v.findViewById(R.id.eventName_textView);
         titleTextView.setText("Name: " + object.getString("eventName"));
 
-        //Adds the time where the object was created.
+        // Display the event date and time
         TextView eventTime = (TextView) v.findViewById(R.id.date_textView);
-        eventTime.setText("Date: " + object.getString("eventDate") + " at " + object.getString("eventTime"));
+        SimpleDateFormat ft = new SimpleDateFormat ("MMMM dd, yyyy 'at' hh:mm a");
+        eventTime.setText("Date: " + ft.format(object.getDate("eventDate")));
 
-        //Adds the location to the list view.
+        // Display the event location
         TextView eventLocation = (TextView) v.findViewById(R.id.location_textView);
         eventLocation.setText("Location: " + object.getString("eventLocationAddress"));
 
         return v;
     }
 
-    public ArrayList<String> getEventNames() {return eventNames;}
+    public ArrayList<String> getEvents() {return events;}
 
 }

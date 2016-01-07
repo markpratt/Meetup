@@ -30,7 +30,6 @@ import java.util.List;
 public class eventView extends Activity {
 
     private ParseQueryAdapter<ParseObject> mainAdapter;
-    //private CustomAdapter urgentTodosAdapter;
     private ListView listView;
     private CustomAdapter adapter2;
 
@@ -49,42 +48,7 @@ public class eventView extends Activity {
         Intent i = getIntent();
         System.out.println("Intent: " + i);
 
-        //ParseQueryAdapter<ParseObject> adapter = new ParseQueryAdapter<ParseObject>(this, "event");
-        //adapter.setTextKey("eventName");
-
-        /*ParseQueryAdapter<ParseObject> adapter =
-                new ParseQueryAdapter<ParseObject>(this,new ParseQueryAdapter.QueryFactory<ParseObject>(){
-                    public ParseQuery<ParseObject> create(){
-                ParseQuery query = new ParseQuery("event");
-                //query.whereContains("eventCreator", currentUser.getUsername());
-                //query.whereContains("eventCreator", currentUser);
-                query.whereEqualTo("eventCreator",currentUser);
-                return query;
-            }
-        });
-        //ParseQuery<ParseObject> query = ParseQuery.getQuery("event");
-        //query.whereEqualTo("eventCreator", ParseUser.getCurrentUser());
-        ParseQueryAdapter<ParseObject> adapter =
-                new ParseQueryAdapter<ParseObject>(this,new ParseQueryAdapter.QueryFactory<ParseObject>(){
-                    public ParseQuery<ParseObject> create() {
-                        ParseQuery<ParseObject> eventQuery = ParseQuery.getQuery("event");
-                        eventQuery.whereEqualTo("eventCreator", ParseUser.getCurrentUser());
-                        eventQuery.findInBackground(new FindCallback<ParseObject>() {
-                            public void done(List<ParseObject> objects, ParseException e) {
-                                if (e == null) {
-                                }
-                            }
-                        });
-                    return eventQuery;
-                    }
-                });
-          */
         adapter2 = new CustomAdapter(this);
-        adapter2.setTextKey("eventName");
-
-
-        System.out.println("User Name 1: "+ ParseUser.getCurrentUser().toString());
-        System.out.println("User Name 2: "+ currentUser.getUsername());
 
         ListView listView = (ListView) findViewById(R.id.event_listView);
         listView.setAdapter(adapter2);
@@ -103,13 +67,15 @@ public class eventView extends Activity {
                     EventDetails will then have to query database to get event data.
                  */
 
-                // Get selected eventName from CustomAdapter
-                ArrayList<String> eventNames = adapter2.getEventNames();
-                String selectedName = eventNames.get(position);
+                /* Update 12/22:  use objectIds instead of names.  */
+
+                // Get selected events from CustomAdapter
+                ArrayList<String> events = adapter2.getEvents();
+                String selectedEventId = events.get(position);
 
                 // Pass event data to EventDetails
                 Intent myIntent = new Intent(eventView.this, EventDetails.class);
-                myIntent.putExtra("selectedName", selectedName);
+                myIntent.putExtra("eventId", selectedEventId);
                 eventView.this.startActivity(myIntent);
 
             }

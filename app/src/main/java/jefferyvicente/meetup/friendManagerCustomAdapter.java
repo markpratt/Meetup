@@ -32,11 +32,10 @@ public class friendManagerCustomAdapter extends ParseQueryAdapter<ParseObject> {
         super(context, new ParseQueryAdapter.QueryFactory<ParseObject>() {
             public ParseQuery create() {
 
-                System.out.println("friendSearch: " + friendSearch);
-                ParseQuery query = new ParseQuery("_User");
-                //query.whereEqualTo("name", friendSearch);
+                // Get all users whose name contains the searched-for word
+                ParseQuery query = ParseUser.getQuery();
                 query.whereContains("name", friendSearch);
-                //query.orderByDescending("createdAt");
+                query.orderByDescending("createdAt");
                 return query;
             }
         });

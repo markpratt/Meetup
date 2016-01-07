@@ -28,7 +28,7 @@ public class EventDetailsCustomAdapter extends ParseQueryAdapter<ParseObject> {
         super(context, new ParseQueryAdapter.QueryFactory<ParseObject>() {
             public ParseQuery create() {
 
-                // Create query to get all attendees in the event
+                // Get all the attendees for the chosen event
                 ParseRelation relation = event.getRelation("attendees");
                 ParseQuery query = relation.getQuery();
                 return query;

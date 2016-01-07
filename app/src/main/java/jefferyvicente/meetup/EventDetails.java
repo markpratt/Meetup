@@ -21,11 +21,15 @@ import com.parse.ParseUser;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class EventDetails extends Activity {
+
     private EventDetailsCustomAdapter adapter;
-    private String eventName;
+    private String objectId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +37,7 @@ public class EventDetails extends Activity {
         setContentView(R.layout.activity_event_details);
         getActionBar().hide();
 
-        // Get extras from eventView or EventsInvitedTo activity
+        // Get extras from eventView, EventsAttending, or EventsInvitedTo activity
         Bundle myInput = this.getIntent().getExtras();
         if (myInput == null)
             Log.d("debug", "Intent was null");
@@ -46,11 +50,11 @@ public class EventDetails extends Activity {
             final TextView datv = (TextView) this.findViewById(R.id.date_TextView);
             final TextView ttv = (TextView) this.findViewById(R.id.time_TextView);
 
-            /*  Assume eventName is unique. Perform query to get other data for event and then set
+            /*  Assume objectId is unique. Perform query to get other data for event and then set
                 TextViews, ListView, and Buttons.
              */
             ParseQuery<ParseObject> query = ParseQuery.getQuery("event");
-            query.whereEqualTo("eventName", myInput.getString("selectedName"));
+            query.whereEqualTo("objectId", myInput.getString("eventId"));
             query.getFirstInBackground(new GetCallback<ParseObject>() {
                 public void done(final ParseObject object, ParseException e) {
                     if (object == null) {
@@ -58,14 +62,16 @@ public class EventDetails extends Activity {
                     } else {
                         Log.d("event", "Retrieved the object.");
 
-                        eventName = object.getString("eventName");
-                        String eventDate = object.getString("eventDate");
-                        String eventTime = object.getString("eventTime");
+                        objectId = object.getString("objectId");
+                        String eventName = object.getString("eventName");
                         String eventDetails = object.getString("eventDetails");
                         String eventLocationAddress = object.getString("eventLocationAddress");
+                        Date eventDate = object.getDate("eventDate");
                         ntv.setText(eventName);
-                        datv.setText(eventDate);
-                        ttv.setText(eventTime);
+                        SimpleDateFormat ft_day = new SimpleDateFormat ("MMMM dd, yyyy");
+                        datv.setText(ft_day.format(eventDate));
+                        SimpleDateFormat ft_time = new SimpleDateFormat ("hh:mm a");
+                        ttv.setText(ft_time.format(eventDate));
                         dtv.setText(eventDetails);
                         ltv.setText(eventLocationAddress);
 
@@ -159,9 +165,9 @@ public class EventDetails extends Activity {
                             @Override
                             public void onClick(View arg0)
                             {
-                                // Pass event name to MapActivity and go there
+                                // Pass event Id to MapActivity and go there
                                 Intent myIntent = new Intent(EventDetails.this, MapActivity.class);
-                                myIntent.putExtra("eventName", eventName);
+                                myIntent.putExtra("objectId", objectId);
                                 EventDetails.this.startActivity(myIntent);
 
                             }

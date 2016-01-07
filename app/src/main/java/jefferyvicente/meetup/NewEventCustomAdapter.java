@@ -29,7 +29,6 @@ public class NewEventCustomAdapter extends ParseQueryAdapter<ParseObject>
 
     public NewEventCustomAdapter(Context context)
     {
-
         super(context, new ParseQueryAdapter.QueryFactory<ParseObject>()
         {
             public ParseQuery create()
@@ -37,7 +36,7 @@ public class NewEventCustomAdapter extends ParseQueryAdapter<ParseObject>
                 // Get all the friends associated with current User
                 final ParseUser currentUser = ParseUser.getCurrentUser();
                 ParseRelation relation = currentUser.getRelation("friends");
-                ParseQuery query =relation.getQuery();
+                ParseQuery query = relation.getQuery();
                 return query;
             }
         });

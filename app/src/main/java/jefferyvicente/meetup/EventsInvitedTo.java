@@ -49,13 +49,13 @@ public class EventsInvitedTo extends Activity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                // Get selected eventName from EventsInvitedToCustomAdapter
-                ArrayList<String> eventNames = adapter2.getEventNames();
-                String selectedName = eventNames.get(position);
+                // Get selected events from EventsInvitedToCustomAdapter
+                ArrayList<String> events = adapter2.getEvents();
+                String selectedEventId = events.get(position);
 
                 // Pass event data to EventDetails
                 Intent myIntent = new Intent(EventsInvitedTo.this, EventDetails.class);
-                myIntent.putExtra("selectedName", selectedName);
+                myIntent.putExtra("eventId", selectedEventId);
                 EventsInvitedTo.this.startActivity(myIntent);
 
             }
