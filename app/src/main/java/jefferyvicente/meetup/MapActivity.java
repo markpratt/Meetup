@@ -66,7 +66,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback
     LatLng curr_user_location;
     List<ParseObject> attendeeList;
     ArrayList<LatLng> attendees_locations;
-    String eventName;
+    String eventId;
 
     ArrayList<LatLng> temp;
 
@@ -106,20 +106,20 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback
             gps.showSettings();
         }
 
-        // Get eventName from EventDetails
+        // Get eventId from EventDetails
         Bundle myInput = this.getIntent().getExtras();
         if (myInput == null)
             Log.d("debug", "Intent was null");
         else
         {
             Log.d("debug", "Intent was ok");
-            eventName = myInput.getString("eventName");
+            eventId = myInput.getString("eventId");
             build_attendees_locations_list();
 
 
             // Retrieve locationLatitude and locationLongitude for this event
             ParseQuery<ParseObject> query = ParseQuery.getQuery("event");
-            query.whereEqualTo("eventName", eventName);
+            query.whereEqualTo("objectId", eventId);
             try
             {
                 // Perform query in main thread
@@ -140,17 +140,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback
             }
         }
 
-                /*
-        try {
-            Thread.sleep(200);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            // handle the exception...
-            // For example consider calling Thread.currentThread().interrupt(); here.
-        }
-*/
-
-        //distanceParse();
     }
 
     /**
@@ -287,9 +276,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void build_attendees_locations_list()
     {
-        //  Assume eventName is unique. Perform query to get event's attendees
+        //  Perform query to get event's attendees
         ParseQuery<ParseObject> query = ParseQuery.getQuery("event");
-        query.whereEqualTo("eventName", eventName);
+        query.whereEqualTo("objectId", eventId);
         try
         {
             // Get attendees list for this event

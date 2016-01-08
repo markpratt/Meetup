@@ -29,7 +29,7 @@ import java.util.List;
 public class EventDetails extends Activity {
 
     private EventDetailsCustomAdapter adapter;
-    private String objectId;
+    private String eventId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +43,7 @@ public class EventDetails extends Activity {
             Log.d("debug", "Intent was null");
         else {
             Log.d("debug", "Intent was ok");
+            eventId = myInput.getString("eventId");
 
             final TextView ntv = (TextView) this.findViewById(R.id.name_TextView);
             final TextView dtv = (TextView) this.findViewById(R.id.details_TextView);
@@ -54,7 +55,7 @@ public class EventDetails extends Activity {
                 TextViews, ListView, and Buttons.
              */
             ParseQuery<ParseObject> query = ParseQuery.getQuery("event");
-            query.whereEqualTo("objectId", myInput.getString("eventId"));
+            query.whereEqualTo("objectId", eventId);
             query.getFirstInBackground(new GetCallback<ParseObject>() {
                 public void done(final ParseObject object, ParseException e) {
                     if (object == null) {
@@ -62,7 +63,6 @@ public class EventDetails extends Activity {
                     } else {
                         Log.d("event", "Retrieved the object.");
 
-                        objectId = object.getString("objectId");
                         String eventName = object.getString("eventName");
                         String eventDetails = object.getString("eventDetails");
                         String eventLocationAddress = object.getString("eventLocationAddress");
@@ -167,7 +167,7 @@ public class EventDetails extends Activity {
                             {
                                 // Pass event Id to MapActivity and go there
                                 Intent myIntent = new Intent(EventDetails.this, MapActivity.class);
-                                myIntent.putExtra("objectId", objectId);
+                                myIntent.putExtra("eventId", eventId);
                                 EventDetails.this.startActivity(myIntent);
 
                             }
