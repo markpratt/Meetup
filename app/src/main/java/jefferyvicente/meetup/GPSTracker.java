@@ -21,6 +21,7 @@ import android.util.Log;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
@@ -39,6 +40,8 @@ public class GPSTracker extends Service implements LocationListener
     Location location; // location
     double latitude; // latitude
     double longitude; // longitude
+    ParseGeoPoint geoPoint;
+    ParseUser user;
     // The minimum distance to change Updates in meters
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // 10 meters
     // The minimum time between updates in milliseconds
@@ -51,6 +54,8 @@ public class GPSTracker extends Service implements LocationListener
     {
         this.mContext = context;
         getLocation();
+        geoPoint = new ParseGeoPoint();
+        user = new ParseUser();
     }
 
     public Location getLocation()
@@ -192,27 +197,21 @@ public class GPSTracker extends Service implements LocationListener
     public void onLocationChanged(Location location)
     {
         // On User location change, send coordinates to Parse
-        latitude = location.getLatitude();
-        longitude = location.getLongitude();
+        geoPoint.setLatitude(location.getLatitude());
+        geoPoint.setLongitude(location.getLongitude());
 
         ParseQuery<ParseUser> query = ParseUser.getQuery();
-        query.whereEqualTo("name", ParseUser.getCurrentUser().getString("name"));
-        query.getFirstInBackground(new GetCallback<ParseUser>()
+        try
         {
-            public void done(ParseUser user, ParseException e)
-            {
-                if (e == null)
-                {
-                    user.put("Latitude", latitude);
-                    user.put("Longitude", longitude);
-                    user.saveInBackground();
-                } else
-                {
-                    // Something went wrong.
-                }
-            }
-        });
+            user = query.get(ParseUser.getCurrentUser().getObjectId());
+        }
+        catch(ParseException ex)
+        {
+            System.out.println("Query failed");
+        }
 
+        user.put("location", geoPoint);
+        user.saveInBackground();
     }
 
     public void onProviderDisabled(String provider)

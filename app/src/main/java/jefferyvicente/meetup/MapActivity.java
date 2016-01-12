@@ -40,23 +40,6 @@ import org.json.JSONObject;
 
 
 
-/*import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.utils.URLEncodedUtils;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URLDecoder;
-import org.apache.http.params.HttpParams;
-import java.lang.Thread;*/
-
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback
 {
     private GoogleMap mMap;
@@ -67,8 +50,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback
     List<ParseObject> attendeeList;
     ArrayList<LatLng> attendees_locations;
     String eventId;
-
-    ArrayList<LatLng> temp;
 
     LatLng locationlatLng;
     double locationLatitude;
@@ -195,8 +176,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback
         double dest_lat = destination.latitude;
         double dest_lon = destination.longitude;
 
-
-        //String URL ="https://maps.googleapis.com/maps/api/distancematrix/json?origins=Vancouver+BC&destinations=Victoria+BC&mode=bicycling&language=fr-FR";
         String URL ="https://maps.googleapis.com/maps/api/distancematrix/json?origins="+orgin_lat+","+orgin_lon+"&destinations="+dest_lat+","+dest_lon+"&mode=driving&language=fr-EN";
         System.out.println("URL: "+ URL);
         JsonServiceHandler handler = new JsonServiceHandler();
@@ -204,7 +183,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback
         String jsonData = handler.makeServiceCall(URL, JsonServiceHandler.GET);
 
         System.out.println(jsonData);
-
 
         try {
             JSONObject jsonRootObject = new JSONObject(jsonData);
@@ -264,7 +242,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback
     public void add_attendee_markers()
     {
         // Add a marker for each attendee
-        for(int i = 0; i<attendees_locations.size(); i++)
+        for(int i = 0; i < attendees_locations.size(); i++)
         {
             String dataDistanceParse = distanceParse(attendees_locations.get(i), locationlatLng);
 
@@ -278,22 +256,21 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback
     {
         //  Perform query to get event's attendees
         ParseQuery<ParseObject> query = ParseQuery.getQuery("event");
-        query.whereEqualTo("objectId", eventId);
         try
         {
             // Get attendees list for this event
-            ParseRelation relation = query.getFirst().getRelation("attendees");
+            ParseRelation relation = query.get(eventId).getRelation("attendees");
             ParseQuery list_query = relation.getQuery();
             attendeeList = list_query.find();
+
             // Get attendees' locations
             attendees_locations = new ArrayList<LatLng>();
             for (int i = 0; i < attendeeList.size(); i++)
             {
                 try
                 {
-                    double lat = (double) attendeeList.get(i).getNumber("Latitude");
-                    double lon = (double) attendeeList.get(i).getNumber("Longitude");
-                    LatLng attendeeLoc = new LatLng(lat, lon);
+                    ParseGeoPoint geoPoint = attendeeList.get(i).getParseGeoPoint("location");
+                    LatLng attendeeLoc = new LatLng(geoPoint.getLatitude(), geoPoint.getLongitude());
                     attendees_locations.add(attendeeLoc);
                 }
                 // If an attendee's coordinates are currently undefined, set them to (0,0)
