@@ -37,7 +37,7 @@ public class EventsInvitedTo extends Activity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events_invited_to);
-        getActionBar().hide();
+        getActionBar().setTitle("Events You're Invited To");
 
         adapter2 = new EventsInvitedToCustomAdapter(this);
         adapter2.setTextKey("invitedToEventName");

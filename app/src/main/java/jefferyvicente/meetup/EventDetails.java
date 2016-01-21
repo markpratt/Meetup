@@ -35,7 +35,7 @@ public class EventDetails extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_details);
-        getActionBar().hide();
+        getActionBar().setTitle("Event Details");
 
         // Get extras from eventView, EventsAttending, or EventsInvitedTo activity
         Bundle myInput = this.getIntent().getExtras();

@@ -55,7 +55,7 @@ public class newEventInfo extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_event_info);
-        getActionBar().hide();
+        getActionBar().setTitle("Create New Event");
 
         // Set the ListView adapter
         adapter = new NewEventCustomAdapter(this);

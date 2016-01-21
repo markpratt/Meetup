@@ -9,22 +9,12 @@
     tools:context="jefferyvicente.meetup.newEventInfo"
     android:background="#f1e9dc">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Create Event"
-        android:id="@+id/createEventtextView"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
-
     <EditText
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/name_editText"
-        android:layout_below="@+id/createEventtextView"
         android:layout_alignParentStart="true"
         android:hint="Name" />
 

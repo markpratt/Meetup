@@ -15,20 +15,10 @@
         tools:context="jefferyvicente.meetup.eventView"
         android:background="#f1e9dc">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Events you've been invited to:"
-            android:id="@+id/invitedToEvents_textView"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true" />
-
         <ListView
             android:layout_width="wrap_content"
             android:layout_height="400dp"
             android:id="@+id/invitedToEvent_listView"
-            android:layout_below="@+id/invitedToEvents_textView"
             android:layout_centerHorizontal="true"
             android:choiceMode="multipleChoice"
             android:clickable="true"

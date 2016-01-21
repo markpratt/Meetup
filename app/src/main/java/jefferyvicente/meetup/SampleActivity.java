@@ -43,9 +43,8 @@ public class SampleActivity extends Activity
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        getActionBar().hide();
         setContentView(R.layout.activity_login);
+        getActionBar().hide();
         titleTextView = (TextView) findViewById(R.id.profile_title);
         emailTextView = (TextView) findViewById(R.id.profile_email);
         nameTextView = (TextView) findViewById(R.id.profile_name);

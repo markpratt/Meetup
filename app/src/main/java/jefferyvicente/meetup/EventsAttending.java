@@ -37,7 +37,7 @@ public class EventsAttending extends Activity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events_attending);
-        getActionBar().hide();
+        getActionBar().setTitle("Events You're Attending");
 
         adapter2 = new EventsAttendingCustomAdapter(this);
         adapter2.setTextKey("attendingEventName");
